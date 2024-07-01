@@ -33,6 +33,34 @@ class ViewController: UIViewController {
                 // MARK: 2. Response & Data
                 if data != nil {
                     
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, Any>
+                        
+                        DispatchQueue.main.async {
+                            if let rates = jsonResponse["rates"] as? Dictionary<String, Any> {
+                                
+                                if let tryy = rates["TRY"] as? Double {
+                                    self.tryLabel.text = "TRY: \(tryy)"
+                                }
+                                if let usd = rates["USD"] as? Double {
+                                    self.usdLabel.text = "USD: \(usd)"
+                                }
+                                if let chf = rates["CHF"] as? Double {
+                                    self.chfLabel.text = "CHF: \(chf)"
+                                }
+                                if let gbp = rates["GBP"] as? Double {
+                                    self.gbpLabel.text = "GBP: \(gbp)"
+                                }
+                                if let jpy = rates["JPY"] as? Double {
+                                    self.jpyLabel.text = "JPY: \(jpy)"
+                                }
+                            }
+                        }
+                        
+                    } catch {
+                        print("error")
+                    }
+                    
                 }
             }
         }
